@@ -6,7 +6,7 @@ venv/
 build/
 dist/
 *.log
-data/
+/data/
 profiles/
 *.sqlite3
 *.sqlite3-wal
