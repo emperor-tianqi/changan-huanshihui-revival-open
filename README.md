@@ -42,6 +42,37 @@
 > 连 bat 都不想点？看 [docs/AI_AGENT_GUIDE.md](docs/AI_AGENT_GUIDE.md)，
 > 把整个文件夹交给 AI，让它全程替你操作。
 
+### 想让 AI 全自动？先装 DeepSeek Harness（作者同款）
+
+1. **装 Node.js**（LTS 版）：https://nodejs.org/zh-cn
+2. 打开 PowerShell，安装 Harness：
+
+       npm install -g @deepseek-ai/dsh
+       dsh --version
+
+3. 启动 Web 界面：
+
+       dsh web
+
+   浏览器打开终端里提示的地址（默认 http://127.0.0.1:3080）
+
+4. **注册 DeepSeek 账号并充值**：
+
+   - 打开 https://platform.deepseek.com 注册 / 登录
+   - 左侧「充值」充一点（先充 10 元试水即可，按 token 计费）
+   - 左侧「API Keys」→ 创建 → **复制保存**（只显示一次，丢了只能重建）
+
+5. **用 Key 激活**：
+
+   - 在 DSH 页面打开 设置（Settings）→ 模型（Models）
+   - 找到 DeepSeek 一行 → 粘贴 API Key → 应用
+   - 端点保持默认 https://api.deepseek.com/anthropic
+
+6. 回到项目文件夹，按 [docs/AI_AGENT_GUIDE.md](docs/AI_AGENT_GUIDE.md) 把总提示词发给它。
+
+> API Key 是“电费”，Harness 是“司机”，缺一不可。
+> Key 不要发给别人、不要贴到 Issue、不要提交进 git。
+
 ---
 
 ## 三、你要做的三步

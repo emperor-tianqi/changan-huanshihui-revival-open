@@ -16,7 +16,7 @@
 | --- | --- |
 | **Claude Code** | Anthropic 的命令行 AI，能直接执行命令 |
 | **Codex CLI** | OpenAI 的命令行 AI |
-| **DeepSeek Harness** | 本项目作者用的执行器，支持 DeepSeek 模型 |
+| **DeepSeek Harness** | 本项目作者用的执行器，支持 DeepSeek 模型（安装与充值见文末附录） |
 | **Cursor / Windsurf** | 带 AI 的编辑器，能改文件、跑终端 |
 | **Qoder / Trae** | 国内可用的 AI IDE |
 
@@ -100,6 +100,58 @@ AI 会让你做这些事，照着做即可：
 | 服务端报 profile 已存在 | 第二次还用了 -FirstRun | 去掉 -FirstRun |
 
 ---
+
+## 附录：DeepSeek Harness 安装、充值与激活（作者同款）
+
+### 1. 安装
+
+先装 Node.js（LTS）：https://nodejs.org/zh-cn
+
+然后打开 PowerShell：
+
+    npm install -g @deepseek-ai/dsh
+    dsh --version
+
+### 2. 启动 Web 界面
+
+    dsh web
+
+浏览器打开终端里显示的地址（默认 http://127.0.0.1:3080）。
+
+### 3. 注册 DeepSeek 账号
+
+1. 打开 https://platform.deepseek.com
+2. 注册 / 登录（手机号或邮箱）
+3. 左侧「充值」→ 充一点（先 10 元试水，按 token 计费，用多少扣多少）
+4. 左侧「API Keys」→「创建 API Key」→ 复制保存
+   - 只显示一次，关了就只能重建
+   - 不要发给别人、不要贴 Issue、不要提交进 git
+
+### 4. 用 Key 激活
+
+1. 在 DSH Web 页面点 设置（Settings）→ 模型（Models）
+2. 找到 DeepSeek 一行，点开
+3. 「API 密钥」粘贴刚才的 Key
+4. 端点保持默认：https://api.deepseek.com/anthropic
+5. 点「应用」
+
+### 5. 开始用
+
+1. DSH 里新建一个会话
+2. 工作目录选到项目文件夹（例如 D:/changan-open）
+3. 把上面第 3 步的“总提示词”粘进去发送
+
+### 常见问题
+
+| 问题 | 处理 |
+| --- | --- |
+| npm 不是内部命令 | 没装 Node.js，或安装时没勾选加入 PATH |
+| dsh 不是内部命令 | 全局安装失败，重跑 npm install -g @deepseek-ai/dsh |
+| 页面打不开 | 看终端里实际端口，可能不是 3080 |
+| 提示余额不足 | 去 platform.deepseek.com 充值 |
+| 密钥无效 | 重新创建 Key，注意不要带空格 |
+
+> 费用提示：AI 帮你装环境、排错会消耗 token；先充少量，够用再加。
 
 ## 安全提醒
 
