@@ -1,6 +1,7 @@
 # 让 AI 帮你安装、调试与继续开发
 
 > 你不需要会写代码，也可以把本仓库交给 DeepSeek、Claude Code、ChatGPT 等 AI 工具。
+> 完全没基础？先看 [AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)（傻瓜式：让 AI 全程替你操作）。
 > 下面四段提示词可以直接复制。**复制前先确认 AI 能访问到本仓库文件和你的电脑。**
 
 ## 使用前须知
