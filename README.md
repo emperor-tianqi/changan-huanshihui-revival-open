@@ -1,107 +1,137 @@
-# 长安幻世绘 CN 0.1.20.1 复原服务端（公开预览版）
+# 长安幻世绘 复原服务端（公开预览版）
 
-> **非官方粉丝项目。** 与《长安幻世绘》开发商/发行商无任何关系。
+> 非官方粉丝项目，和原游戏公司没有关系。
 > 本仓库**不包含**原版客户端、APK、美术、音乐或配置资源。
-> 你需要自行合法取得原版 0.1.20.1 安卓客户端。
 
-这是一个用 Python 独立实现的兼容服务端，让**合法取得的原版 0.1.20.1 安卓客户端**
-可以连接到你自己的电脑，进行单机式游玩与调试。
+这是一个跑在 **Windows 电脑**上的“私人服务器”。
+装好之后，你手里**合法取得的原版 0.1.20.1 安卓客户端**可以连到这台电脑上，
+像单机一样玩，并且能存档。
 
-当前版本：**v0.1.0-preview**（预览版，不是完整复原版）。
+当前版本：**v0.1.0-preview**（预览版，不是完整复原）。
 
-## 现在能做什么
+---
 
-- 登录、创建角色、进入长安主城、保存与恢复角色存档
-- 妖灵（卡牌）背包、队伍编成、升级/进阶/升星、技能与觉醒技洗练
-- 部分副本与养成系统（详见 [FEATURE_STATUS.md](FEATURE_STATUS.md)）
-- 天赋、法宝、神符等系统的界面与基础回路
+## 一、你需要准备什么
 
-**不能**期待整款游戏 100% 复原；很多系统仍是“能进入但功能缺失”或“仍在开发”。
-请先看 [FEATURE_STATUS.md](FEATURE_STATUS.md) 再决定是否适合你。
+请先对照这张表，缺一样都跑不起来：
 
-## 三分钟快速开始
+| 你需要 | 是什么 | 去哪弄 |
+| --- | --- | --- |
+| 一台 Windows 电脑 | Win10/Win11，能一直开着 | 你自己的电脑 |
+| Python 3.11 或更高 | 运行服务端的程序 | python.org 官网下载，安装时勾选 “Add python.exe to PATH” |
+| 安卓手机 | 能装游戏、能开 USB 调试 | 你自己的手机 |
+| 原版 0.1.20.1 客户端 | 已经装在手机上的原版游戏 | **自行通过合法途径取得**，本仓库不提供 |
+| 数据线 | 能传数据的 USB 线（不是纯充电线） | 自备 |
+| ADB | 电脑和手机通信的工具 | Google 的 platform-tools，解压后把目录加进 PATH |
 
-### 1. 准备
+**不需要**：Git、Python 第三方库、Docker、Linux、任何加速器。
 
-- Windows 10/11 电脑
-- Python **3.11 或更高**（安装时勾选 “Add python.exe to PATH”）
-- 安卓手机 + 数据线 + 已安装的 **原版 0.1.20.1 客户端**
-- 电脑上的 [ADB](https://developer.android.com/tools/releases/platform-tools)（platform-tools）
+> 如果你不会装 Python 或 ADB，直接看第三节“让 AI 帮你”。
 
-### 2. 下载
+---
 
-```powershell
-git clone https://github.com/emperor-tianqi/changan-huanshihui-revival-open.git
-cd changan-huanshihui-revival-open
-```
+## 二、你要做的三步
 
-没有 git 也可以直接下载 ZIP 解压。
+### 第 1 步：下载本仓库
 
-### 3. 检查环境
+GitHub 页面点 **Code → Download ZIP**，解压到一个**路径里没有中文和空格**的目录，
+例如 D:/changan-open。
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\check_env.ps1
-```
+（会用 git 的人也可以 git clone。）
 
-### 4. 第一次启动服务端（创建独立存档）
+### 第 2 步：启动服务端
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\start_server.ps1 -FirstRun
-```
+在解压出来的目录里，右键 → “在终端中打开”（或 PowerShell），运行：
 
-看到 `stub_started` 与两个端口就绪即可。**不要关闭这个窗口。**
+    powershell -ExecutionPolicy Bypass -File scripts/check_env.ps1
+    powershell -ExecutionPolicy Bypass -File scripts/start_server.ps1 -FirstRun
 
-### 5. 连接手机
+第一条检查环境，第二条启动服务端。**这个窗口不要关。**
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\connect_phone.ps1
-```
+### 第 3 步：连接手机并进游戏
 
-脚本会：
+手机插上电脑，在手机上允许 USB 调试，然后运行：
 
-1. 检查手机是否被 ADB 识别；
-2. 把手机的两个端口反向映射到电脑（46002 / 38083）；
-3. 把本地 SDK 兼容垫片推送到客户端的 `update/luaScript` 目录。
+    powershell -ExecutionPolicy Bypass -File scripts/connect_phone.ps1
 
-### 6. 进入游戏
+打开游戏 → 服务器列表选 **“1服-幻世单机”** → 创建角色 → 进主城。
 
-手机打开游戏 → 选择“1服-幻世单机” → 进入 → 创建角色。
+以后每次玩：先运行 start_server.ps1（**不要**加 -FirstRun），再运行 connect_phone.ps1。
 
-## 第二次及以后
+---
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\start_server.ps1
-```
+## 三、让 AI 帮你（推荐给不懂电脑的人）
 
-不带 `-FirstRun` 就是**继续原存档**。
+你不需要会写代码。把下面这段话复制给 DeepSeek、ChatGPT 或 Claude：
 
-## 文档
+    这是我下载的《长安幻世绘》复原项目。
+    请先阅读 README.md 和 docs/PLAYER_GUIDE.md，
+    检查我的 Windows 环境（Python、ADB、端口），
+    一步一步帮我启动服务端并连接安卓手机。
+    优先使用 scripts/ 里现成的脚本，不要重写项目，也不要删我的存档。
+    每步告诉我应该看到什么；出错时我贴报错给你。
 
-| 文档 | 适合谁 |
+AI 能帮你：装环境、看报错、改配置、判断是服务端问题还是手机问题。
+AI 不能替你：提供原版客户端、绕过版权、保证改完一定能跑。
+
+更多提示词（修 BUG、调测试等级、继续开发）见 **docs/AI_GUIDE.md**。
+
+---
+
+## 四、我们已经做了什么
+
+### 能玩的
+
+- 登录、创建角色、长安主城、存档与读档
+- 妖灵背包、队伍编成、升级/进阶/升星
+- 觉醒技洗练（含祝福保底、7-9 级掉级、10 级必成规则）
+- 天赋（五系节点）、法宝、神符、时装
+- 邮件、月签、祈灵（测试池，不是真实掉率）
+- 神器副本与通天塔的一部分
+
+### 能进但有缺失的
+
+- 昆仑装备副本：面板能开，战斗流程没接完
+- 魔涧：详情能开，点“进入”会停住
+- 商城/排行榜/公会：入口在，交互不全
+
+### 还不能用的
+
+- 交易行（打开会断线）
+- 装备副本战斗、魔涧进入
+- iOS、多人联机
+
+完整清单见 **FEATURE_STATUS.md**。
+
+---
+
+## 五、重要说明（看了少踩坑）
+
+1. **服务端只在你电脑上**：手机通过 USB 连过来，所以玩的时候电脑要开着、线要插着。
+2. **客户端要能指向本机**：本仓库提供独立编写的 Lua 垫片，不修改 APK；
+   不同渠道包可能不兼容。详见 docs/PLAYER_GUIDE.md 第 8 节。
+3. **存档在电脑上**：%LOCALAPPDATA%/chang_an_revival_profiles/main/，
+   重装游戏不会丢，但删这个目录会丢，记得备份。
+4. **数值是兼容实现**：和原版不完全一致，部分系统可能卡住或黑屏。
+5. **不要**把账号、Token、完整存档贴到公开 Issue。
+
+---
+
+## 六、文档目录
+
+| 文档 | 给谁看 |
 | --- | --- |
-| [docs/PLAYER_GUIDE.md](docs/PLAYER_GUIDE.md) | 第一次接触本项目的玩家：安装、存档、故障排查 |
-| [docs/AI_GUIDE.md](docs/AI_GUIDE.md) | 想让 AI 帮忙安装、修 BUG、调测试角色的人 |
-| [FEATURE_STATUS.md](FEATURE_STATUS.md) | 想知道哪些玩法能玩、哪些不能 |
-| [docs/DEV_NOTES.md](docs/DEV_NOTES.md) | 想继续开发的程序员 |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | 贡献代码与报告问题 |
+| docs/PLAYER_GUIDE.md | 第一次装的玩家：12 节完整教程 + 故障排查 |
+| docs/AI_GUIDE.md | 想让 AI 帮忙的人：四段可复制提示词 |
+| docs/GLOSSARY.md | 看不懂术语的人：服务端/ADB/端口/垫片都是什么 |
+| FEATURE_STATUS.md | 想知道哪些能玩、哪些不能 |
+| docs/DEV_NOTES.md | 想继续开发的程序员 |
+| CONTRIBUTING.md | 想贡献代码/报问题 |
 
-## 已知限制（务必先读）
+---
 
-1. **客户端需要能被“指到本地”**：服务端只监听本机，手机通过 ADB 反向端口访问。
-   本仓库提供的是**独立编写的 Lua 兼容垫片**，不修改 APK；如果你使用的客户端版本
-   或渠道不同，垫片可能不生效。详见玩家教程第 8 节。
-2. **不支持 iOS**：本项目只针对安卓客户端。
-3. **必须有一台 Windows 电脑常开**：手机本身不能独立运行服务端。
-4. **预览版**：副本、战斗结算、商城等系统仍有缺失，可能出现卡住/黑屏。
-5. 数据来自原版客户端配置的兼容实现，可能与原版数值有差异；文档中标注了哪些是
-   “机制复原”、哪些是“兼容替代”。
+## 七、许可与声明
 
-## 许可
-
-本仓库中原创代码使用 MIT 许可（见 [LICENSE](LICENSE)）。
-原版游戏的一切内容（客户端、素材、配置、商标）不属于本仓库，见 [NOTICE](NOTICE)。
-
-## 免责声明
-
-本项目仅供学习、研究与个人兼容性测试。请在遵守当地法律与原游戏用户协议的前提下
-使用；由此产生的任何后果由使用者自行承担。
+- 本仓库原创代码：MIT（见 LICENSE）
+- 原版游戏内容不属于本仓库（见 NOTICE）
+- 仅供学习、研究与个人兼容性测试，请遵守当地法律和原游戏用户协议

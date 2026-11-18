@@ -5,6 +5,7 @@
 >
 > 当前版本是 **v0.1.0-preview**，不是完整复原版。先读
 > [FEATURE_STATUS.md](../FEATURE_STATUS.md) 确认你在意的玩法是否可用。
+> 遇到不认识的词（服务端、ADB、端口、垫片……）查 [GLOSSARY.md](GLOSSARY.md)。
 
 ---
 
