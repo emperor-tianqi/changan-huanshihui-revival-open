@@ -42,7 +42,11 @@
 > 连 bat 都不想点？看 [docs/AI_AGENT_GUIDE.md](docs/AI_AGENT_GUIDE.md)，
 > 把整个文件夹交给 AI，让它全程替你操作。
 
-### 想让 AI 全自动？先装 DeepSeek Harness（作者同款）
+### 可选：让 AI 全自动（推荐 DeepSeek Harness，作者同款）
+
+> **这一步不是必须的。** 已经会接 agent（Claude Code、Codex CLI、Cursor、Trae 等）的人，
+> 直接跳到 [docs/AI_AGENT_GUIDE.md](docs/AI_AGENT_GUIDE.md) 复制提示词即可，不用装 Harness。
+> 下面这套流程，是给“想照着作者的环境来”的新手准备的。
 
 1. **装 Node.js**（LTS 版）：https://nodejs.org/zh-cn
 2. 打开 PowerShell，安装 Harness：
