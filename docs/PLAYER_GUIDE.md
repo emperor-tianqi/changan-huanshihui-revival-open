@@ -149,6 +149,29 @@ powershell -ExecutionPolicy Bypass -File scripts\connect_phone.ps1
 - 如果客户端仍然去连官方服务器，说明它的服务器入口不是本机；
   本项目**不提供修改后的客户端**（版权原因），这一点请理解。
 
+### 检查客户端入口文件（连不上时必看）
+
+有些客户端会把服务器入口缓存在一个文件名很长的文件里。路径：
+
+```
+/sdcard/Android/data/com.aligames.xs.lingxi/files/A0845C9C46943B54224430F8FC7E4EC2
+```
+
+用文本编辑器/ADB 查看内容，**必须**是：
+
+```
+127.0.0.1:38083/enter.txt
+```
+
+如果写的是别的端口（例如 38080），游戏启动时就会报“网络状态不佳”，
+而服务端一条请求都收不到。改成 38083 后再开游戏即可。
+
+改法（USB 连接后）：
+
+```powershell
+adb shell "printf '127.0.0.1:38083/enter.txt' > /sdcard/Android/data/com.aligames.xs.lingxi/files/A0845C9C46943B54224430F8FC7E4EC2"
+```
+
 安卓版本：Android 7.0 及以上（实测 Android 13/14 可用）。
 
 ---

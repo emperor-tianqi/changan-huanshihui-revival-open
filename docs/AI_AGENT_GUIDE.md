@@ -97,6 +97,7 @@ AI 会让你做这些事，照着做即可：
 | 端口被占用 | 上次服务端没关 | scripts/stop_server.ps1 |
 | 手机列表没有设备 | 没授权 USB 调试 | 手机上点“允许” |
 | 游戏连不上 | 没做 adb reverse | 重跑 connect_phone.ps1 |
+| 报“网络状态不佳”但服务端无请求 | 客户端入口文件端口不对（应为 127.0.0.1:38083） | 查 PLAYER_GUIDE 第 8 节 |
 | 服务端报 profile 已存在 | 第二次还用了 -FirstRun | 去掉 -FirstRun |
 
 ---
